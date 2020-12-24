@@ -10,10 +10,11 @@ export const TransactionHistory = (props: { amountCalc: (arg0: number) => void; 
             let ind = -1;
             for (let i = 0; i < transContext.transactions.length; i++)
             {
-                if (transContext.transactions[i] === transContext.transactions[id])
+                if (transContext.transactions[i].id === id)
+                {
                     ind = i;
+                }
             }
-            console.log(ind + " " + id)
             props.amountCalc(transContext.transactions[ind].amount);
             transContext.removeTransaction(id);
         }

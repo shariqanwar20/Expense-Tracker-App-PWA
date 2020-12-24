@@ -1,31 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { AddTransaction } from './Components/AddTransaction';
 import { Balance } from './Components/Balance';
 import { Header } from './Components/Header';
 import { IncomeExpense } from './Components/IncomeExpense';
 import { TransactionHistory } from './Components/TransactionHistory';
-import { GlobalContext, transactionContext } from './Services/GlobalContext';
+import { GlobalContext } from './Services/GlobalContext';
 
 function App() {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
   const [balance, setBalance] = useState(0);
-  const transContext = useContext(transactionContext);
 
   const AmountCalc = (value: number) => {
     if (value > 0)
       setIncome(income + value);
     else
-      setExpense(income + value);
+      setExpense(expense + value);
     setBalance(balance + value);
-    console.log(income + " " + expense + " " + balance)
   }
   const RemoveCalc = (value: number) => {
     if (value > 0)
       setIncome(income - value);
     else
-      setExpense(income + value);
+      setExpense(expense - value);
     setBalance(balance - value);
   }
 
