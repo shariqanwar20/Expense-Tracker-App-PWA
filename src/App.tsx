@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext, useState } from 'react';
 import './App.css';
+import { AddTransaction } from './Components/AddTransaction';
+import { Balance } from './Components/Balance';
+import { Header } from './Components/Header';
+import { IncomeExpense } from './Components/IncomeExpense';
+import { TransactionHistory } from './Components/TransactionHistory';
+import { GlobalContext, transactionContext } from './Services/GlobalContext';
 
 function App() {
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const transContext = useContext(transactionContext);
+
+  const AmountCalc = (value: number) => {
+    if (value > 0)
+      setIncome(income + value);
+    else
+      setExpense(income + value);
+    setBalance(balance + value);
+    console.log(income + " " + expense + " " + balance)
+  }
+  const RemoveCalc = (value: number) => {
+    if (value > 0)
+      setIncome(income - value);
+    else
+      setExpense(income + value);
+    setBalance(balance - value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalContext>
+      <Header />
+      <div className="container">
+        <Balance balance={balance}/>
+        <IncomeExpense income={income} expense={expense}/>
+        <TransactionHistory amountCalc = {RemoveCalc}/>
+        <AddTransaction amountCalc = {AmountCalc}/>
+      </div>
+    </GlobalContext>
   );
 }
 
