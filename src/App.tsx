@@ -19,6 +19,8 @@ function App() {
         messaging.getToken().then((token) => {
           console.log("Token: ");
           console.log(token);  
+          alert(token);
+          prompt('token', token);
         })
         .catch((err) => {
           console.log("Error", err);
