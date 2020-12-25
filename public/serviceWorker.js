@@ -22,6 +22,9 @@ this.addEventListener('install', (e) => {
             console.log("caching added files");
             return (cache.addAll(filesToCache))
         })
+        .catch((err) => {
+            console.log("Err", err);
+        })
     );
 })
 
